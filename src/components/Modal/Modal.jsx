@@ -17,7 +17,7 @@ const Modal = ({ largeImageURL, tags, onClose }) => {
       document.removeEventListener('keydown', handleKeyClose);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-}, []);
+  }, []);
 
   const handleKeyClose = event => {
     if (event.key === 'Escape' || event.key === ' ') {
