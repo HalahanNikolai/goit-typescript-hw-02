@@ -1,8 +1,8 @@
 // Импортируем модуль axios для работы с HTTP-запросами
-import axios from 'axios';
+import axios from "axios";
 
-axios.defaults.baseURL = 'https://pixabay.com/api/';
-const API_KEY = '39884939-f973fe0cf2cb34cf3e6c18c7b';
+axios.defaults.baseURL = "https://pixabay.com/api/";
+const API_KEY = "39884939-f973fe0cf2cb34cf3e6c18c7b";
 
 export const getImages = async (query, page) => {
   const response = await axios.get(
