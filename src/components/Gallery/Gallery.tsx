@@ -1,37 +1,39 @@
-import React from 'react'
-import Notiflix from 'notiflix';
+import React from "react";
+import Notiflix from "notiflix";
 // import { RotatingLines } from 'react-loader-spinner';
 import ClipLoader from "react-spinners/ClipLoader";
-import { useEffect, useState, useCallback } from 'react';
-import * as PixabayAPI from '../../services/pixabay-api';
-import ImageGallery from '../ImageGallery/ImageGallery';
-import GalleryInfo from '../GalleryInfo/GalleryInfo';
-import Button from '../Button/Button';
+import { useEffect, useState, useCallback } from "react";
+import * as PixabayAPI from "../../services/pixabay-api";
+import ImageGallery from "../ImageGallery/ImageGallery";
+import GalleryInfo from "../GalleryInfo/GalleryInfo";
+import Button from "../Button/Button";
 
 const Status = {
-  IDLE: 'idle',
-  PENDING: 'pending',
-  RESOLVED: 'resolved',
-  REJECTED: 'rejected',
+  IDLE: "idle",
+  PENDING: "pending",
+  RESOLVED: "resolved",
+  REJECTED: "rejected",
 };
+interface ImageGalleryItemProps {
+  image: {
+    webformatURL: string;
+    largeImageURL: string;
+    tags: string;
+  };
+}
 
-
-const Gallery = ({ searchQuery }) => {
+const Gallery: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
   // console.log('searchQuery:', searchQuery)
   const [query, setQuery] = useState<string>(searchQuery);
   const [currentPage, setCurrentPage] = useState<number>(1);
   const [totalPages, setTotalPages] = useState<number>(0);
-  const [images, setImages] = useState<{}[]>([]);
-  console.log('images', images)
+  // const [images, setImages] = useState<ImageGalleryItemProps[]>([]);
+  const [images, setImages] = useState<
+    { id: number; webformatURL: string; largeImageURL: string; tags: string }[]
+  >([]);
   const [status, setStatus] = useState<string>(Status.IDLE);
 
-  interface FetchData {
-  hits: [];
-  total: number;
-  totalHits: number;
-  }
-  
-  const fetchImages = async (query : string, currentPage  : number) => {
+  const fetchImages = async (query: string, currentPage: number) => {
     try {
       const data = await PixabayAPI.getImages(query, currentPage);
       return data;
@@ -41,7 +43,7 @@ const Gallery = ({ searchQuery }) => {
   };
 
   const updateImages = useCallback(async () => {
-    if (query.trim() === '') {
+    if (query.trim() === "") {
       return;
     }
     setStatus(Status.PENDING);
@@ -50,9 +52,9 @@ const Gallery = ({ searchQuery }) => {
       // If no images are found, show a warning notification.
       if (data.hits.length === 0) {
         Notiflix.Report.warning(
-          'PixQuery Warning',
-          'Sorry, but we could not find any photos for your search query. Please try changing your keywords or search for something else.',
-          'Okay'
+          "PixQuery Warning",
+          "Sorry, but we could not find any photos for your search query. Please try changing your keywords or search for something else.",
+          "Okay"
         );
 
         setStatus(Status.REJECTED);
@@ -63,9 +65,9 @@ const Gallery = ({ searchQuery }) => {
       }
     } catch (error) {
       Notiflix.Report.failure(
-        'PixQuery Warning',
+        "PixQuery Warning",
         `Error fetching images: ${error.message}`,
-        'Okay'
+        "Okay"
       );
       setStatus(Status.REJECTED);
     }
@@ -74,7 +76,7 @@ const Gallery = ({ searchQuery }) => {
   const loadMore = useCallback(async () => {
     setStatus(Status.PENDING);
     const data = await fetchImages(query, currentPage);
-    setImages(prevImages => [...prevImages, ...data.hits]);
+    setImages((prevImages) => [...prevImages, ...data.hits]);
     setStatus(Status.RESOLVED);
   }, [currentPage, query]);
 
@@ -93,7 +95,7 @@ const Gallery = ({ searchQuery }) => {
     }
   }, [currentPage, loadMore, updateImages]);
 
-  const handleButtonClick = ( event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     const newPage = currentPage + 1;
     setCurrentPage(newPage);
   };
@@ -119,7 +121,7 @@ const Gallery = ({ searchQuery }) => {
       <>
         <ImageGallery images={images} />
         {currentPage < totalPages && (
-          <Button  onClick={handleButtonClick}>Load More</Button>
+          <Button onClick={handleButtonClick}>Load More</Button>
         )}
       </>
     );

@@ -1,31 +1,24 @@
-import React, { useState } from 'react';
-import {
-  GalleryItem,
-  GalleryImage,
-} from './ImageGalleryItem.styled';
-import Modal from '../Modal/Modal';
+import React, { useState } from "react";
+import { GalleryItem, GalleryImage } from "./ImageGalleryItem.styled";
+import Modal from "../Modal/Modal";
 
-interface ImageGalleryItemProps{
-    image: {
-      webformatURL: string;
-      largeImageURL: string;
-      tags: string;
-    },
-};
+interface ImageGalleryItemProps {
+  image: {
+    webformatURL: string;
+    largeImageURL: string;
+    tags: string;
+  };
+}
 
-const ImageGalleryItem: React.FC<ImageGalleryItemProps> = props => {
+const ImageGalleryItem: React.FC<ImageGalleryItemProps> = (props) => {
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  const toggleModal = ():void => {
+  const toggleModal = (): void => {
     setShowModal(!showModal);
   };
 
   const {
-    image: {
-      webformatURL,
-      largeImageURL,
-      tags,
-    },
+    image: { webformatURL, largeImageURL, tags },
   } = props;
 
   return (

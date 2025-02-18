@@ -1,22 +1,23 @@
-import React from 'react';
-import { useState } from 'react';
-import Section from '../Section/Section';
-import Searchbar from '../Searchbar/Searchbar';
-import Gallery from '../Gallery/Gallery';
+import React from "react";
+import { useState } from "react";
+import Section from "../Section/Section";
+import Searchbar from "../Searchbar/Searchbar";
+import Gallery from "../Gallery/Gallery";
 
-// interface AppProps {
+interface AppProps {
+  children?: React.ReactNode;
+}
+const App: React.FC<AppProps> = () => {
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
-// }
-const App= () => {
-  const [searchQuery, setSearchQuery] = useState <string>('');
-
-  const handleSubmit: (dataForm: string) => void = dataForm => {
-    setSearchQuery(dataForm)};
+  const handleSubmit: (dataForm: string) => void = (dataForm) => {
+    setSearchQuery(dataForm);
+  };
 
   return (
     <>
       <Searchbar onSubmit={handleSubmit}></Searchbar>
-      <Section  title="Search results">
+      <Section title="Search results">
         <Gallery searchQuery={searchQuery}></Gallery>
       </Section>
     </>

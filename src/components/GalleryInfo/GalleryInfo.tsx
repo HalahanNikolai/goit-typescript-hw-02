@@ -1,9 +1,11 @@
-import React from 'react';
-import { Information } from './GalleryInfo.styled';
-
-const GalleryInfo = () => {
+import React from "react";
+import { Information } from "./GalleryInfo.styled";
+interface GalleryInfoProps {
+  children?: React.ReactNode;
+}
+const GalleryInfo: React.FC<GalleryInfoProps> = () => {
   return (
-   <Information>
+    <Information>
       <h1> Welcome to the searchable image gallery! </h1>
     </Information>
   );
