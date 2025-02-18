@@ -1,7 +1,11 @@
 import React from 'react';
 import { SectionWrap, SectionTitle } from './Section.styled';
 
-const Section = ({ title, children }) => {
+interface SectionProps {
+  title: string;
+  children: React.ReactNode;
+}
+const Section: React.FC<SectionProps>  = ({ title, children }) => {
   return (
     <SectionWrap>
       <SectionTitle>{title}</SectionTitle>

@@ -1,5 +1,6 @@
+import React from 'react'
 import Notiflix from 'notiflix';
-import { useState } from 'react';
+import { useState, FormEvent } from 'react';
 import {
   SearchbarWrap,
   SearchbarForm,
@@ -8,13 +9,17 @@ import {
   SearchbarInput,
 } from './Searchbar.styled';
 
+// interface SearchVal{
+//   searchQuery: string;
+// };
+
 const Searchbar = ({ onSubmit }) => {
-  const [searchQuery, setSearchQuery] = useState('');
-  const handleChange = event => {
-    const inputValue = event.target.value;
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const handleChange = (event:FormEvent<HTMLFormElement>):void => {
+    const inputValue = event.currentTarget.value;
     setSearchQuery(inputValue);
   };
-  const handleSubmit = event => {
+  const handleSubmit = (event:FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (!searchQuery.trim()) {
       return Notiflix.Report.failure(

@@ -1,3 +1,4 @@
+import React from 'react'
 import Notiflix from 'notiflix';
 // import { RotatingLines } from 'react-loader-spinner';
 import ClipLoader from "react-spinners/ClipLoader";
@@ -14,14 +15,23 @@ const Status = {
   REJECTED: 'rejected',
 };
 
-const Gallery = ({ searchQuery }) => {
-  const [query, setQuery] = useState(searchQuery);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
-  const [images, setImages] = useState([]);
-  const [status, setStatus] = useState(Status.IDLE);
 
-  const fetchImages = async (query, currentPage) => {
+const Gallery = ({ searchQuery }) => {
+  // console.log('searchQuery:', searchQuery)
+  const [query, setQuery] = useState<string>(searchQuery);
+  const [currentPage, setCurrentPage] = useState<number>(1);
+  const [totalPages, setTotalPages] = useState<number>(0);
+  const [images, setImages] = useState<{}[]>([]);
+  console.log('images', images)
+  const [status, setStatus] = useState<string>(Status.IDLE);
+
+  interface FetchData {
+  hits: [];
+  total: number;
+  totalHits: number;
+  }
+  
+  const fetchImages = async (query : string, currentPage  : number) => {
     try {
       const data = await PixabayAPI.getImages(query, currentPage);
       return data;
@@ -83,7 +93,7 @@ const Gallery = ({ searchQuery }) => {
     }
   }, [currentPage, loadMore, updateImages]);
 
-  const handleButtonClick = () => {
+  const handleButtonClick = ( event: React.MouseEvent<HTMLButtonElement>) => {
     const newPage = currentPage + 1;
     setCurrentPage(newPage);
   };
@@ -98,7 +108,7 @@ const Gallery = ({ searchQuery }) => {
         {images.length > 0 && <ImageGallery images={images} />}
         <ClipLoader
           color="#82a38f"
-          width='55px'
+          // width  ='55px'
         />
       </>
     );
@@ -109,7 +119,7 @@ const Gallery = ({ searchQuery }) => {
       <>
         <ImageGallery images={images} />
         {currentPage < totalPages && (
-          <Button onClick={handleButtonClick}>Load More</Button>
+          <Button  onClick={handleButtonClick}>Load More</Button>
         )}
       </>
     );

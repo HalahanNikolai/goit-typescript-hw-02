@@ -5,10 +5,18 @@ import {
 } from './ImageGalleryItem.styled';
 import Modal from '../Modal/Modal';
 
-const ImageGalleryItem = props => {
-  const [showModal, setShowModal] = useState(false);
+interface ImageGalleryItemProps{
+    image: {
+      webformatURL: string;
+      largeImageURL: string;
+      tags: string;
+    },
+};
 
-  const toggleModal = () => {
+const ImageGalleryItem: React.FC<ImageGalleryItemProps> = props => {
+  const [showModal, setShowModal] = useState<boolean>(false);
+
+  const toggleModal = ():void => {
     setShowModal(!showModal);
   };
 
