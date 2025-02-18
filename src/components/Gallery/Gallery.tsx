@@ -95,7 +95,7 @@ const Gallery: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
     }
   }, [currentPage, loadMore, updateImages]);
 
-  const handleButtonClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+  const handleButtonClick = () => {
     const newPage = currentPage + 1;
     setCurrentPage(newPage);
   };
