@@ -121,7 +121,9 @@ const Gallery: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
       <>
         <ImageGallery images={images} />
         {currentPage < totalPages && (
-          <Button onClick={handleButtonClick}>Load More</Button>
+          <div>
+            <button onClick={handleButtonClick}>Load More</button>
+          </div>
         )}
       </>
     );
