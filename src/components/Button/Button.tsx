@@ -4,7 +4,6 @@ import { ButtonLoadMore } from "./Button,styled";
 interface ButtonProps {
   onClick: () => void;
 }
-
 // : React.FC<{ onClick: () => void }>
 // function Button(props: { onClick: () => void }) {
 function Button({ onClick }) {
@@ -14,5 +13,4 @@ function Button({ onClick }) {
     </ButtonLoadMore>
   );
 }
-
 export default Button;
