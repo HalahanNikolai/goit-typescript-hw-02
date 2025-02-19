@@ -63,7 +63,7 @@ const Gallery: React.FC<{ searchQuery: string }> = ({ searchQuery }) => {
         setTotalPages(Math.ceil(data.totalHits / 12));
         setStatus(Status.RESOLVED);
       }
-    } catch (error) {
+    } catch (error: any) {
       Notiflix.Report.failure(
         "PixQuery Warning",
         `Error fetching images: ${error.message}`,

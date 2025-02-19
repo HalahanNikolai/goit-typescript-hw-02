@@ -6,7 +6,7 @@ interface ButtonProps {
 }
 // : React.FC<{ onClick: () => void }>
 // function Button(props: { onClick: () => void }) {
-function Button({ onClick }) {
+function Button({ onClick }: ButtonProps) {
   return (
     <ButtonLoadMore type="button" onClick={onClick}>
       Load More
